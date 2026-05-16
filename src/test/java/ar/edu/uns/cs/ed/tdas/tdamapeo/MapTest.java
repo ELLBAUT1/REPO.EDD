@@ -2,6 +2,7 @@ package ar.edu.uns.cs.ed.tdas.tdamapeo;
 
 import ar.edu.uns.cs.ed.tdas.excepciones.*;
 import ar.edu.uns.cs.ed.tdas.Entry;
+import ar.edu.uns.cs.ed.tdas.PRACTICOS.TP5.EJ2.MapeoAbierto;
 
 import static org.junit.Assert.*;
 
@@ -23,7 +24,7 @@ public class MapTest {
 	private Map<Integer, Integer> getMapeo() {
 
 		Map<Integer, Integer> mapeo = null;
-		//mapeo = new MapeoConHash<Integer, Integer>(); //TODO: Descomentar y crear instancia del TDA a testear
+		mapeo = new MapeoAbierto<Integer, Integer>(); //TODO: Descomentar y crear instancia del TDA a testear
 		return mapeo;
 
 	}

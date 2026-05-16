@@ -2,6 +2,7 @@ package ar.edu.uns.cs.ed.tdas.tdalista;
 
 import ar.edu.uns.cs.ed.tdas.excepciones.*;
 import ar.edu.uns.cs.ed.tdas.Position;
+import ar.edu.uns.cs.ed.tdas.PRACTICOS.TP4.EJ1.DoubleLinkedList;
 
 import static org.junit.Assert.*;
 import java.util.*;
@@ -18,7 +19,7 @@ public class ListTest {
 
 	private PositionList<String> getList() {
 		PositionList<String> lista = null;
-		//lista = new ListaDoblementeEnlazada<String>(); //TODO: Descomentar y crear instancia del TDA a testear
+		lista = new DoubleLinkedList<String>(); //TODO: Descomentar y crear instancia del TDA a testear
 		return lista;
 	}
 

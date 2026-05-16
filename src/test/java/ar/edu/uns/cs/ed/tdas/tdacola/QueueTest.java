@@ -1,5 +1,6 @@
 package ar.edu.uns.cs.ed.tdas.tdacola;
 
+import ar.edu.uns.cs.ed.tdas.PRACTICOS.TP3.EJ2.QueueArray;
 import ar.edu.uns.cs.ed.tdas.excepciones.EmptyQueueException;
 
 import static org.junit.Assert.*;
@@ -18,7 +19,7 @@ public class QueueTest {
 	private Queue<String> getQueue()
 	{
 		Queue<String> c = null;
-		//c = new ColaEnlazada<String>(); //TODO: Descomentar y crear instancia del TDA a testear
+		c = new QueueArray<String>(); //TODO: Descomentar y crear instancia del TDA a testear
 		return c;
 	 }
 	

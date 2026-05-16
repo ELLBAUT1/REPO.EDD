@@ -11,6 +11,7 @@ package ar.edu.uns.cs.ed.tdas.tdapila;
 import org.junit.*;                         //For tags
 import static org.junit.Assert.*;           //For assertions
 
+import ar.edu.uns.cs.ed.tdas.PRACTICOS.TP3.EJ1.StackArray;
 import ar.edu.uns.cs.ed.tdas.excepciones.EmptyStackException;
 
 public class StackTest {
@@ -21,7 +22,7 @@ public class StackTest {
 	private Stack<String> getStack()
 	{
 		Stack<String> pila = null;
-		//pila = new PilaConLista<String>(); //TODO: Descomentar y crear instancia del TDA a testear
+		pila = new StackArray<String>(); //TODO: Descomentar y crear instancia del TDA a testear
 		return pila;	  
 	 }
 	
