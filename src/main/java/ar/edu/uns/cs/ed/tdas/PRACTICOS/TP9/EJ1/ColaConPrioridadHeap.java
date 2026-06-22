@@ -1,28 +1,32 @@
 package ar.edu.uns.cs.ed.tdas.PRACTICOS.TP9.EJ1;
 
-import ar.edu.uns.cs.ed.tdas.tdacolaconprioridad.PriorityQueue;
 import ar.edu.uns.cs.ed.tdas.excepciones.EmptyPriorityQueueException;
 import ar.edu.uns.cs.ed.tdas.excepciones.InvalidKeyException;
 import java.util.Comparator;
 import ar.edu.uns.cs.ed.tdas.Entry;
+import ar.edu.uns.cs.ed.tdas.tdacolaconprioridad.PriorityQueue;
 
 public class ColaConPrioridadHeap<K,V> implements PriorityQueue<K,V> {
     //Atributos de instancia
     protected Entrada<K,V>[] elementos;
+    protected Comparator<K> comparador;
     protected int size;
 
     //Servicios
         //Constructor
-        public ColaConPrioridadHeap(){
+        @SuppressWarnings("unchecked")
+        public ColaConPrioridadHeap(Comparator<K> comp){
             elementos = (Entrada<K,V>[]) new Entrada[10000];
+            comparador = comp;
             size = 0;
         }
 
         //Métodos
             //Comandos
-             public Entry<K,V> insert(K key, V value) throws InvalidKeyException{
+            @SuppressWarnings("unchecked")
+            public Entry<K,V> insert(K key, V value) throws InvalidKeyException{
                 checkKey(key);
-                Entrada<K,V> ins = new Entrada(key, value);
+                Entrada<K,V> ins = new Entrada<>(key, value);
                 if(size == elementos.length){
                     Entrada<K,V>[] nuevo = (Entrada<K,V>[]) new Entrada[size*2];
                     for(int i =0; i < size; i++){
@@ -41,11 +45,6 @@ public class ColaConPrioridadHeap<K,V> implements PriorityQueue<K,V> {
                     throw new EmptyPriorityQueueException("Error. Cola vacía.");
                 }
                 Entrada<K,V> ret = elementos[1];
-                if(size == 1){
-                    elementos[1] = null;
-                    size = 0;
-                    return ret;
-                }
                 elementos[1] = elementos[size];
                 elementos[size] = null;
                 size--;
@@ -56,7 +55,7 @@ public class ColaConPrioridadHeap<K,V> implements PriorityQueue<K,V> {
             protected void acomodarHaciaArriba(int pos){
                 boolean acomode = false;
                 while(pos > 1 && !acomode){
-                    if(elementos[pos].getKey().compareTo(elementos[pos/2].getKey()) < 0){
+                    if(comparador.compare(elementos[pos].getKey(), elementos[pos/2].getKey()) < 0){
                         Entrada<K,V> entrada = elementos[pos/2];
                         elementos[pos/2] = elementos[pos];
                         elementos[pos] = entrada;
@@ -68,6 +67,7 @@ public class ColaConPrioridadHeap<K,V> implements PriorityQueue<K,V> {
                 }
             }
 
+            @SuppressWarnings("unused")
             protected void acomodarHaciaAbajo(int pos){
                 boolean acomode = false;
                 while(pos*2 <= size && !acomode){
@@ -76,7 +76,7 @@ public class ColaConPrioridadHeap<K,V> implements PriorityQueue<K,V> {
                     int posHijoDerecho = pos * 2 + 1;
                     int posMenor;
                     // ¿Tiene hijo derecho y es menor que el izquierdo?
-                    if (posHijoDerecho <= size && elementos[posHijoDerecho].getKey().compareTo(elementos[posHijoIzquierdo].getKey()) < 0) {
+                    if (posHijoDerecho <= size && comparador.compare(elementos[posHijoDerecho].getKey(), elementos[posHijoIzquierdo].getKey()) < 0) {
                         posMenor = posHijoDerecho;
                     } else {
                         // O no tiene derecho, o el izquierdo es menor
@@ -84,7 +84,7 @@ public class ColaConPrioridadHeap<K,V> implements PriorityQueue<K,V> {
                     }
 
                     // Si el padre es mayor que el hijo menor, intercambiamos
-                    if (elementos[pos].getKey().compareTo(elementos[posMenor].getKey()) > 0) {
+                    if (comparador.compare(elementos[pos].getKey(), elementos[posMenor].getKey()) > 0) {
                         Entrada<K, V> aux = elementos[pos];
                         elementos[pos] = elementos[posMenor];
                         elementos[posMenor] = aux;
@@ -120,6 +120,7 @@ public class ColaConPrioridadHeap<K,V> implements PriorityQueue<K,V> {
 
                 
     //Clase anidada
+    @SuppressWarnings("hiding")
     protected class Entrada<K, V> implements Entry<K,V>{
         //Atributos de instancia
         protected K clave;
